@@ -1,0 +1,56 @@
+Retrieval-Augmented Generation (RAG) Overview
+
+Retrieval-Augmented Generation, commonly known as RAG, is an AI framework that enhances Large Language Model (LLM) responses by retrieving relevant information from an external knowledge base before generating an answer.
+
+RAG was introduced to address the core limitations of LLMs, particularly their inability to access real-time, private, or domain-specific data. By combining retrieval with generation, RAG systems can produce answers that are both accurate and grounded in factual documents.
+
+How RAG Works
+
+The RAG pipeline consists of two main phases:
+
+Indexing Phase:
+- Documents are collected from various sources (PDFs, text files, databases, websites)
+- Documents are split into smaller chunks for better granularity
+- Each chunk is converted into a vector embedding using an embedding model
+- Embeddings are stored in a vector database for efficient retrieval
+
+Query Phase:
+- The user submits a natural language question
+- The question is converted into an embedding using the same model
+- The vector database performs a similarity search
+- Top-K most relevant chunks are retrieved
+- The chunks are injected into an LLM prompt as context
+- The LLM generates a grounded, context-aware response
+
+Why RAG is Important
+
+RAG is important for several reasons:
+1. Reduces hallucination by grounding responses in real documents
+2. Allows LLMs to access private or proprietary data
+3. Enables knowledge base updates without retraining the model
+4. Provides source attribution for generated answers
+5. Improves accuracy on domain-specific tasks
+
+RAG vs Fine-tuning
+
+RAG and fine-tuning are both methods to customize LLMs, but they serve different purposes:
+- RAG is better for frequently updated knowledge, private data, and when interpretability is needed
+- Fine-tuning is better for learning specific styles, formats, or behaviors
+- RAG is generally cheaper and faster to implement than fine-tuning
+- RAG provides source traceability, fine-tuning does not
+
+Types of RAG
+
+Naive RAG: Simple retrieve-then-generate pipeline
+Advanced RAG: Adds query rewriting, re-ranking, and hybrid search
+Modular RAG: Highly customizable pipeline with swappable components
+Agentic RAG: Uses AI agents to decide when and what to retrieve
+
+RAG Applications
+
+RAG is used in many real-world applications:
+- Customer support chatbots with company-specific knowledge
+- Legal and medical document analysis
+- Code assistance with repository context
+- Personal knowledge management systems
+- Enterprise search and Q&A systems

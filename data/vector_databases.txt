@@ -1,0 +1,133 @@
+Vector Databases
+
+A vector database is a specialized database system designed to store, index, and efficiently search high-dimensional vector embeddings. Vector databases are a foundational component of modern AI applications, particularly for semantic search and RAG systems.
+
+What Are Vectors?
+
+In the context of AI and NLP, vectors (also called embeddings) are numerical representations of data:
+- Text is converted to vectors using embedding models
+- Similar content produces similar vectors
+- The "similarity" can be measured mathematically
+
+For example, the words "king" and "queen" would have vectors that are closer to each other than "king" and "bicycle".
+
+Why Vector Databases?
+
+Traditional databases use exact matching (SQL WHERE clauses). Vector databases use approximate nearest neighbor (ANN) search to find similar items efficiently.
+
+Use cases:
+- Semantic search (find documents by meaning, not just keywords)
+- Recommendation systems
+- Image and audio similarity search
+- Anomaly detection
+- RAG document retrieval
+
+FAISS (Facebook AI Similarity Search)
+
+FAISS is an open-source library developed by Meta (Facebook) Research for efficient similarity search over large vector collections.
+
+Key features:
+- Written in C++ with Python bindings
+- Supports billions of vectors
+- Multiple index types for different speed/accuracy tradeoffs
+- GPU acceleration available
+- No persistence layer (in-memory)
+
+FAISS Index Types:
+
+IndexFlatL2: Exact L2 (Euclidean) distance search. Most accurate, slowest for large datasets.
+IndexFlatIP: Exact Inner Product (dot product) search. Used for cosine similarity when vectors are normalized.
+IndexIVFFlat: Inverted File Index. Clusters vectors, only searches nearby clusters. Faster, slightly less accurate.
+IndexIVFPQ: Adds Product Quantization for memory compression. Good for very large datasets.
+IndexHNSW: Hierarchical Navigable Small World. Graph-based ANN. Very fast queries, good recall.
+
+Similarity Metrics
+
+Cosine Similarity: Measures angle between vectors. Range [-1, 1]. Best for text embeddings.
+Euclidean Distance (L2): Measures geometric distance. Larger = more different.
+Dot Product: Efficient when vectors are pre-normalized. Equivalent to cosine similarity.
+Manhattan Distance (L1): Sum of absolute differences. Less common.
+
+Popular Vector Database Options
+
+FAISS:
+- Pros: Fast, mature, no server needed, free
+- Cons: No persistence, no metadata filtering, single-machine
+- Best for: Research, prototypes, offline batch processing
+
+Chroma:
+- Pros: Easy to use Python-native, persistent, metadata filtering
+- Cons: Not as fast as FAISS at scale
+- Best for: Local development, small-medium applications
+
+Pinecone:
+- Pros: Managed cloud service, scalable, production-ready
+- Cons: Paid service, vendor lock-in
+- Best for: Production applications with scale requirements
+
+Weaviate:
+- Pros: Open-source, GraphQL API, hybrid search
+- Cons: Complex setup, resource intensive
+- Best for: Enterprise applications with rich metadata
+
+Qdrant:
+- Pros: Open-source, Rust-based (fast), rich filtering
+- Cons: Newer, smaller community
+- Best for: High-performance production systems
+
+Milvus:
+- Pros: Distributed, scales horizontally, cloud-native
+- Cons: Complex infrastructure
+- Best for: Massive scale deployments
+
+How Vector Search Works
+
+1. Indexing: Embed documents and add to index
+2. Query: Embed the query using same model
+3. Search: Find k nearest neighbors in vector space
+4. Return: Retrieve original documents for matches
+
+Approximate Nearest Neighbor (ANN)
+
+For large datasets, exact search is too slow. ANN algorithms trade a small amount of accuracy for massive speed improvements:
+
+HNSW algorithm:
+- Builds a hierarchical graph of connections
+- Search starts at top layer (few nodes) and refines
+- Achieves near-exact results in sub-millisecond time
+
+IVF (Inverted File Index):
+- Clusters vectors using k-means
+- Only searches within nearest cluster(s)
+- nprobe parameter controls accuracy vs speed
+
+Dimensionality and Performance
+
+Higher dimension vectors:
+- More expressive, better semantic capture
+- Slower to search
+- More memory required
+
+Common embedding dimensions:
+- all-MiniLM-L6-v2: 384 dimensions
+- all-mpnet-base-v2: 768 dimensions
+- OpenAI text-embedding-ada-002: 1536 dimensions
+- OpenAI text-embedding-3-large: 3072 dimensions
+
+Metadata Filtering
+
+Advanced vector databases support filtering by metadata alongside vector search:
+- Filter by date, category, author, etc.
+- Pre-filter before vector search
+- Post-filter after vector search
+- Hybrid approaches for best performance
+
+This is critical for multi-tenant applications where documents belong to specific users.
+
+Hybrid Search
+
+Combining vector search with traditional keyword search (BM25):
+- Vector search captures semantic similarity
+- Keyword search captures exact term matches
+- Combined scores improve overall retrieval quality
+- Particularly useful when document corpus has technical jargon

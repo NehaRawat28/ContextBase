@@ -1,0 +1,65 @@
+Transformer Architecture
+
+Transformers are a type of neural network architecture introduced in the seminal 2017 paper "Attention Is All You Need" by Vaswani et al. at Google. They have since become the dominant architecture in natural language processing and many other AI domains.
+
+The Core Idea: Self-Attention
+
+The key innovation of transformers is the self-attention mechanism, which allows the model to weigh the importance of different words in a sequence when processing each word. Unlike RNNs, transformers process all tokens in parallel, making them much faster to train.
+
+Self-attention works as follows:
+1. Each token is projected into three vectors: Query (Q), Key (K), and Value (V)
+2. Attention scores are computed as dot products of queries and keys
+3. Scores are normalized using softmax to get attention weights
+4. Output is a weighted sum of value vectors
+
+This allows the model to capture long-range dependencies that RNNs struggled with.
+
+Transformer Components
+
+Embedding Layer: Converts tokens to dense vectors
+Positional Encoding: Adds position information since attention is order-agnostic
+Multi-Head Attention: Runs multiple attention operations in parallel
+Feed-Forward Network: Applies non-linear transformations to each position
+Layer Normalization: Stabilizes training by normalizing activations
+Residual Connections: Helps gradients flow during backpropagation
+
+Encoder vs Decoder
+
+Encoder-only models (BERT, RoBERTa): 
+- Process full input sequence bidirectionally
+- Best for understanding tasks: classification, NER, embedding generation
+
+Decoder-only models (GPT, LLaMA, Claude):
+- Generate tokens one at a time autoregressively
+- Best for generation tasks: text completion, Q&A, summarization
+
+Encoder-Decoder models (T5, BART):
+- Encoder processes input, decoder generates output
+- Best for sequence-to-sequence tasks: translation, summarization
+
+Transformers in Embeddings
+
+For RAG systems, encoder models are commonly used to generate embeddings. Models like:
+- all-MiniLM-L6-v2: Lightweight, fast, good quality embeddings (384 dimensions)
+- all-mpnet-base-v2: Higher quality embeddings (768 dimensions)
+- text-embedding-ada-002: OpenAI's embedding model (1536 dimensions)
+
+These models are fine-tuned using contrastive learning to produce embeddings where semantically similar sentences are close in vector space.
+
+Attention Complexity and Scaling
+
+Standard self-attention has O(n²) complexity with respect to sequence length, which limits context window size. Recent innovations address this:
+- Sparse attention: Only attends to a subset of tokens
+- Flash Attention: Memory-efficient attention computation
+- Sliding window attention: Local attention with global tokens
+
+Transformers have scaled remarkably well with more data and parameters, following scaling laws that predict performance improvements.
+
+Key Milestones
+
+2017: Transformer architecture introduced (Attention Is All You Need)
+2018: BERT introduces bidirectional pre-training
+2019: GPT-2 demonstrates powerful language generation
+2020: GPT-3 shows few-shot learning at scale
+2022: ChatGPT brings transformers to mainstream use
+2023-present: Open-source models like LLaMA democratize access

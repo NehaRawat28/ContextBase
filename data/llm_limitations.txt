@@ -1,0 +1,115 @@
+Limitations of Large Language Models (LLMs)
+
+Large Language Models have demonstrated remarkable capabilities but come with significant limitations that users and developers must understand. This document covers the key limitations and challenges associated with LLMs.
+
+1. Hallucination
+
+One of the most critical limitations is hallucination — the tendency of LLMs to generate confident-sounding but factually incorrect information.
+
+Types of hallucination:
+- Factual hallucination: Stating incorrect facts (wrong dates, names, statistics)
+- Source hallucination: Fabricating citations, papers, or quotes that don't exist
+- Logical hallucination: Reasoning errors that lead to wrong conclusions
+
+Why it happens:
+- LLMs are trained to produce plausible text, not necessarily true text
+- They learn statistical patterns, not ground truth
+- No internal fact-checking mechanism
+
+Mitigation strategies:
+- RAG (Retrieval-Augmented Generation) to ground responses
+- Self-consistency prompting
+- Fact verification pipelines
+- Uncertainty quantification
+
+2. Knowledge Cutoff
+
+LLMs have a training cutoff date, after which they have no knowledge of events. For example:
+- GPT-4 was trained on data up to early 2024
+- Claude models have varying cutoff dates
+
+This means LLMs cannot answer questions about:
+- Recent news and events
+- Updated scientific findings
+- New product releases
+- Current prices or market data
+
+RAG systems solve this by dynamically retrieving up-to-date information.
+
+3. Context Window Limitations
+
+LLMs have a maximum context window (measured in tokens) they can process at once. This limits:
+- Document length they can reason over
+- Conversation history they can remember
+- Number of examples in few-shot prompting
+
+Context window sizes vary widely:
+- GPT-3.5: 4,096 tokens
+- GPT-4: 8,192–128,000 tokens (depending on version)
+- Claude: Up to 200,000 tokens
+- Gemini: Up to 1 million tokens (experimental)
+
+4. Reasoning and Math Limitations
+
+LLMs struggle with:
+- Multi-step mathematical calculations
+- Complex logical reasoning chains
+- Spatial and visual reasoning (without multimodal extensions)
+- Counting and enumeration tasks
+
+Mitigation:
+- Chain-of-thought prompting improves reasoning
+- Tool use (calculators, code interpreters) extends capabilities
+- Specialized fine-tuning on reasoning datasets
+
+5. Bias and Fairness Issues
+
+LLMs inherit biases from their training data:
+- Gender, racial, and cultural stereotypes
+- Political bias depending on training corpus
+- Representation disparities across languages and cultures
+
+These biases can lead to unfair or harmful outputs if not mitigated.
+
+6. Lack of Private/Local Knowledge
+
+LLMs only know what was in their training data. They cannot access:
+- Your personal documents
+- Company-internal data
+- Private databases
+- Real-time web data (without tools)
+
+RAG addresses this by connecting LLMs to external knowledge sources.
+
+7. Inconsistency
+
+LLMs can give different answers to the same question:
+- Across different runs (temperature > 0)
+- When questions are paraphrased differently
+- In long conversations where context shifts
+
+8. Prompt Sensitivity
+
+LLM performance is highly sensitive to how prompts are phrased:
+- Small wording changes can drastically affect output
+- Requires prompt engineering expertise
+- Results may not generalize across models
+
+9. Computational Cost
+
+LLMs are expensive to:
+- Train (millions to billions of dollars for frontier models)
+- Infer (requires powerful GPUs)
+- Scale to many users simultaneously
+
+Smaller, distilled models and quantization help reduce costs.
+
+10. Lack of True Understanding
+
+LLMs are often described as "stochastic parrots" — they pattern-match rather than truly understand language. They lack:
+- Common sense grounding
+- World models
+- Causal understanding
+- True intentionality
+
+This fundamental limitation means they can fail on tasks that seem trivially easy to humans but require genuine understanding.
